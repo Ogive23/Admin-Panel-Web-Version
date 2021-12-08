@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactApexChart from 'react-apexcharts';
 import Lottie from "lottie-react";
 import loading from "./../assets/animations/loading.json";
 
-export class StatItem extends Component {
+export class StatChart extends Component {
     constructor(props) {
         super(props);
         this.state = { width: 0, height: 0 };
@@ -25,19 +26,14 @@ export class StatItem extends Component {
     }
     render() {
         if (this.props.isLoading)
-            return (<div class="text-center">
-                <div class="text-center mx-auto" style={{ width: this.state.height / 25 }} >
+            return (
+                <div class="text-center mx-auto" style={{ width: this.state.height / 10 }} >
                     <Lottie animationData={loading} />
-                </div>
-                <h4>{this.props.text}</h4>
-            </div>)
+                </div>)
         return (
-            <div>
-                <h1>{this.props.number}</h1>
-                <h4>{this.props.text}</h4>
-            </div>
+            <ReactApexChart options={this.props.options} series={this.props.series} type={this.props.type} />
         )
     }
 }
 
-export default StatItem
+export default StatChart

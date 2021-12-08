@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Lottie from "lottie-react";
-import loading from "./../assets/animations/loading.json";
+import loading from "./../Assets/animations/loading.json";
 
 export class StatItem extends Component {
     constructor(props) {
@@ -25,8 +25,8 @@ export class StatItem extends Component {
     }
     render() {
         if (this.props.isLoading)
-            return (<div class="text-center">
-                <div class="text-center mx-auto" style={{ width: this.state.height / 25 }} >
+            return (<div className="text-center">
+                <div className="text-center mx-auto" style={{ width: this.state.height / 25 }} >
                     <Lottie animationData={loading} />
                 </div>
                 <h4>{this.props.text}</h4>

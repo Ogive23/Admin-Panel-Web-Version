@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactApexChart from 'react-apexcharts';
 import Lottie from "lottie-react";
-import loading from "./../assets/animations/loading.json";
+import loading from "./../Assets/animations/loading.json";
 
 export class StatChart extends Component {
     constructor(props) {
@@ -27,7 +27,7 @@ export class StatChart extends Component {
     render() {
         if (this.props.isLoading)
             return (
-                <div class="text-center mx-auto" style={{ width: this.state.height / 10 }} >
+                <div className="text-center mx-auto" style={{ width: this.state.height / 10 }} >
                     <Lottie animationData={loading} />
                 </div>)
         return (

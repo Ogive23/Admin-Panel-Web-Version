@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import Chart from "react-apexcharts";
 import Cookies from 'universal-cookie';
 import StatItem from '../Components/StatItem';
+import StatChart from '../Components/StatChart';
 import { Container, Row, Col } from 'react-bootstrap';
-import ReactApexChart from 'react-apexcharts';
 
 
 export class GeneralInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoaded: false,
+            isLoading: true,
             usersChartOptions: null,
             usersChartSeries: null,
             applicationsChartOptions: null,
@@ -40,12 +40,12 @@ export class GeneralInfo extends Component {
             let data = response.data;
             if (data['Err_Flag']) {
                 return this.setState({
-                    isLoaded: true,
+                    isLoading: false,
                     error: data['Err_Desc']
                 });
             }
             this.setState({
-                isLoaded: true,
+                isLoading: false,
                 numberOfActiveUsers: data['data']['General']['NumberOfActiveUsers'],
                 numberOfWebUsers: data['data']['General']['NumberOfWebUsers'],
                 numberOfMobileUsers: data['data']['General']['NumberOfMobileUsers'],
@@ -95,49 +95,49 @@ export class GeneralInfo extends Component {
             .catch((error) => {
                 console.log(error);
                 this.setState({
-                    isLoaded: true,
+                    isLoading: false,
                     error
                 });
             });
     }
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoading, items } = this.state;
+        console.log(this.state.isLoading);
         if (error) {
             return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
-                <Container>
-                    <Row>
-                        <Col xs={6} md={4}><StatItem number={this.state.numberOfWebUsers} text={'Number of Web Users'} /></Col>
-                        <Col xs={6} md={4}><StatItem number={this.state.numberOfActiveUsers} text={'Number of Active Users'} /></Col>
-                        <Col xs={6} md={4}><StatItem number={this.state.numberOfMobileUsers} text={'Number of Mobile Users'} /></Col>
-                    </Row>
+        }
+        return (
+            <Container>
+                <Row>
+                    <Col xs={6} md={4}><StatItem isLoading={this.state.isLoading} number={this.state.numberOfWebUsers} text={'Number of Web Users'} /></Col>
+                    <Col xs={6} md={4}><StatItem isLoading={this.state.isLoading} number={this.state.numberOfActiveUsers} text={'Number of Active Users'} /></Col>
+                    <Col xs={6} md={4}><StatItem isLoading={this.state.isLoading} number={this.state.numberOfMobileUsers} text={'Number of Mobile Users'} /></Col>
+                </Row>
 
-                    <Row>
-                        <Col xs={6} md={4}><StatItem number={this.state.numberOfAhedActiveUsers} text={'Number of Ahed Active Users'} /></Col>
-                        <Col xs={6} md={4}><StatItem number={this.state.numberOfAtaaActiveUsers} text={'Number of Ataa Active Users'} /></Col>
-                        <Col xs={6} md={4}><StatItem number={this.state.numberOfMemoryWallActiveUsers} text={'Number of Memory Wall Active Users'} /></Col>
-                        <Col xs={6} md={4}>
-                            <StatItem number={this.state.numberOfTimeCatcherActiveUsers} text={'Number of Time Catcher Active Users'} /></Col>
-                    </Row>
-                    <Row  xs={1} md={2}>
-                        <Col><ReactApexChart options={this.state.usersChartOptions} series={this.state.usersChartSeries} type="polarArea" />
-                        </Col>
-                        <Col><ReactApexChart options={this.state.applicationsChartOptions} series={this.state.applicationsChartSeries} type="polarArea" />
-                        </Col>
-                    </Row>
+                <Row>
+                    <Col xs={6} md={4}><StatItem isLoading={this.state.isLoading} number={this.state.numberOfAhedActiveUsers} text={'Number of Ahed Active Users'} /></Col>
+                    <Col xs={6} md={4}><StatItem isLoading={this.state.isLoading} number={this.state.numberOfAtaaActiveUsers} text={'Number of Ataa Active Users'} /></Col>
+                    <Col xs={6} md={4}><StatItem isLoading={this.state.isLoading} number={this.state.numberOfMemoryWallActiveUsers} text={'Number of Memory Wall Active Users'} /></Col>
+                    <Col xs={6} md={4}>
+                        <StatItem isLoading={this.state.isLoading} number={this.state.numberOfTimeCatcherActiveUsers} text={'Number of Time Catcher Active Users'} /></Col>
+                </Row>
+                <Row xs={1} md={2}>
+                    <Col>
+                        <StatChart isLoading={this.state.isLoading} options={this.state.usersChartOptions} series={this.state.usersChartSeries} type="polarArea" />
+                    </Col>
+                    <Col>
+                        <StatChart isLoading={this.state.isLoading} options={this.state.applicationsChartOptions} series={this.state.applicationsChartSeries} type="polarArea" />
+                    </Col>
+                </Row>
 
-                    {/* <Chart
+                {/* <Chart
                     options={this.state.options}
                     series={this.state.series}
                     type="bar"
                     width="500"
                 /> */}
-                </Container>
-            );
-        }
+            </Container>
+        );
     }
 }
 

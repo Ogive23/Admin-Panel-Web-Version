@@ -16,11 +16,43 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link
-  rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-  crossorigin="anonymous"
-/>
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        console.log("hahahh");
+        var trigger = $(".hamburger"),
+          overlay = $(".overlay"),
+          isClosed = false;
+
+        trigger.click(function () {
+          hamburger_cross();
+        });
+
+        function hamburger_cross() {
+          if (isClosed == true) {
+            overlay.hide();
+            trigger.removeClass("is-open");
+            trigger.addClass("is-closed");
+            isClosed = false;
+          } else {
+            overlay.show();
+            trigger.removeClass("is-closed");
+            trigger.addClass("is-open");
+            isClosed = true;
+          }
+        }
+
+        $('[data-toggle="offcanvas"]').click(function () {
+          $("#wrapper").toggleClass("toggled");
+        });
+      });
+    </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

@@ -2,7 +2,9 @@ import './App.css';
 import React, { Component } from 'react'
 import "react-bootstrap/dist/react-bootstrap.min.js";
 import GeneralInfo from './Pages/GeneralInfo';
-
+import { BsHouseDoorFill } from "react-icons/bs";
+import './CSS/App.css';
+import Navbar from './Components/Navbar';
 
 export class App extends Component {
   constructor(props) {
@@ -79,7 +81,7 @@ export class App extends Component {
     }
     return (
       <div className="App">
-        <h1>{this.state.value}</h1>
+        {/* <Navbar></Navbar> */}
         <select value={this.state.value} onChange={this.handleChange}>
           <option value="General">General</option>
           <option value="Ahed">Ahed</option>
